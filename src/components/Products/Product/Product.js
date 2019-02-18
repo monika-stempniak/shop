@@ -10,7 +10,7 @@ class Product extends Component {
     return (
       <div className={styles.product}>
         <img className={styles.image} src={image} alt={`${manufacture} ${name}`} />
-        <p className={styles.price}>{price}</p>
+        <p className={styles.price}>{`$${price}`}</p>
         <h3 className={styles.title}>{name}</h3>
       </div>
     );
