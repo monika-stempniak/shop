@@ -1,14 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import ProductsService from "../../services/products.service";
 import Products from "../../components/Products/Products"
+import InputField from "../../components/InputField/InputField"
 
 import styles from "./CatalogPage.module.scss";
 
 class CatalogPage extends Component {
   state = {
-    selectedProduct: "all"
+    selectedProduct: "all",
+    searchValue: ""
   }
+
+  manufacturers = [
+    {
+      "id": "all",
+      "label": "All",
+    },
+    {
+      "id": "apple",
+      "label": "Apple",
+    },
+    {
+      "id": "dell",
+      "label": "Dell",
+    }
+  ];
 
   renderProducts = (selectedProduct) => {
     const selected = selectedProduct.toLowerCase();
@@ -26,12 +43,20 @@ class CatalogPage extends Component {
 
   handleChange = e => {
     this.setState({
-      selectedProduct: e.target.value
+      selectedProduct: e.target.value,
+      searchValue: e.target.value
     });
   };
 
+  handleClear = () => {
+    this.setState({
+      selectedProduct: "all",
+      searchValue: ""
+    });
+  }
+
   render() {
-    const { selectedProduct } = this.state;
+    const { selectedProduct, searchValue } = this.state;
 
     return (
       <div className={styles.container}>
@@ -43,27 +68,36 @@ class CatalogPage extends Component {
               <div className={styles.filterHeader}>
 
               <h4>Search</h4>
-              <a href="#" className={styles.clear}>Clear</a>
+              <button className={styles.clear} onClick={this.handleClear}>Clear</button>
               </div>
-              <div>
-                <input type="text" placeholder="search..." onChange={this.handleChange} />
-              </div>
+              <InputField
+                type="text"
+                placeholder="search..." 
+                name="search"
+                id="search"
+                value={searchValue}
+                handleChange={this.handleChange}  
+                label="Search"
+                className={styles.visuallyhidden}
+              />
 
               <h4>Manufacturer</h4>
-              <div>
-                <div>
-                  <input type="radio" name="manufacturere" id="all" value="all" onChange={this.handleChange} checked={selectedProduct === "all"} />
-                  <label htmlFor="all">All</label>
-                </div>
-                <div>
-                  <input type="radio" name="manufacturere" id="apple" value="apple" onChange={this.handleChange} checked={selectedProduct === "apple"} />
-                  <label htmlFor="apple">Apple</label>
-                </div>
-                <div>
-                  <input type="radio" name="manufacturere" id="dell" value="dell" onChange={this.handleChange} checked={selectedProduct === "dell"} />
-                  <label htmlFor="dell">Dell</label>
-                </div>
-              </div>
+              <Fragment>
+                {
+                  this.manufacturers.map(manufacturer => (
+                    <InputField
+                      key={manufacturer.id}
+                      type="radio"
+                      name="manufacturer"
+                      id={manufacturer.id}
+                      value={manufacturer.id}
+                      handleChange={this.handleChange}  
+                      checked={selectedProduct === manufacturer.id}
+                      label={manufacturer.label}
+                    />
+                  ))
+                }
+              </Fragment>
             </div>
           </div>
 
