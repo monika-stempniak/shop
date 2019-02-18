@@ -18,10 +18,10 @@ class Product extends Component {
 }
 
 Product.propTypes = {
-  image: PropTypes.string,
-  price: PropTypes.string,
-  name: PropTypes.string,
-  manufacture: PropTypes.string
+  image: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  manufacture: PropTypes.string.isRequired
 };
 
 export default Product;
