@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import ProductsService from "../../services/products.service" ;
-import Product from "../../components/Product/Product"
+import ProductsService from "../../services/products.service";
+import Product from "../../components/Product/Product";
 
 import styles from "./HomePage.module.scss";
 
@@ -25,6 +25,7 @@ class HomePage extends Component {
                 image={product.image}
                 price={product.amount}
                 name={product.name}
+                manufacture={product.manufacture}
               />
             )
           }
@@ -38,13 +39,14 @@ class HomePage extends Component {
                 image={product.image}
                 price={product.amount}
                 name={product.name}
+                manufacture={product.manufacture}
               />
             )
           }
         </div>
     </div>
     );
-  }
-}
+  };
+};
 
 export default HomePage;
