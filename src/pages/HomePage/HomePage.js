@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import ProductsService from "../../services/products.service";
-import Product from "../../components/Product/Product";
+import Products from "../../components/Products/Products";
 
 import styles from "./HomePage.module.scss";
 
@@ -18,32 +18,10 @@ class HomePage extends Component {
         <h1 className={styles.headerBig}>Welcome to our store</h1>
 
         <h2 className={styles.headerSmall}>Desktops</h2>
-        <div className={styles.products}>
-          { 
-            this.renderProducts("desktop").map(product => 
-              <Product 
-                image={product.image}
-                price={product.amount}
-                name={product.name}
-                manufacture={product.manufacture}
-              />
-            )
-          }
-        </div>
+        <Products products={this.renderProducts("desktop")} />
 
         <h2 className={styles.headerSmall}>Tablets</h2>
-        <div className={styles.products}>
-          { 
-            this.renderProducts("tablet").map(product => 
-              <Product 
-                image={product.image}
-                price={product.amount}
-                name={product.name}
-                manufacture={product.manufacture}
-              />
-            )
-          }
-        </div>
+        <Products products={this.renderProducts("tablet")} />
     </div>
     );
   };
