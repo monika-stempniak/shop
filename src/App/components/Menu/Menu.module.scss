@@ -2,8 +2,7 @@
 
 .navbar {
   position: relative;
-  min-height: 50px;
-  background-color: $dark-blue;
+  background-color: $black-pearl;
 }
 
 .nav {
@@ -20,6 +19,7 @@
 .nav > li > a {
   font-size: 16px;
   font-weight: 100;
+  line-height: 2;
   padding: 15px 35px;
   color: $white;
   display: block;
