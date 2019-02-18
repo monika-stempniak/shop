@@ -11,12 +11,17 @@ class CatalogPage extends Component {
   }
 
   renderProducts = (selectedProduct) => {
-    if (selectedProduct === "all") {
-      return ProductsService.getProducts();
+    const selected = selectedProduct.toLowerCase();
+    let products;
+    if (selected === "all") {
+      products = ProductsService.getProducts();
     } else {
-      return ProductsService.getProducts()
-      .filter(product => product.manufacture.toLowerCase() === selectedProduct);
+      products = ProductsService.getProducts().filter(product => {
+        return product.name.toLowerCase().includes(selected) || product.manufacture.toLowerCase().includes(selected);
+      });
     }
+
+    return products;
   };
 
   handleChange = e => {
@@ -41,7 +46,7 @@ class CatalogPage extends Component {
               <a href="#" className={styles.clear}>Clear</a>
               </div>
               <div>
-                <input type="text" placeholder="search..."/>
+                <input type="text" placeholder="search..." onChange={this.handleChange} />
               </div>
 
               <h4>Manufacturer</h4>
