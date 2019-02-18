@@ -1,5 +1,9 @@
 @import "../../scss/main.scss";
 
+.wrapper {
+  min-height: 74vh;
+}
+
 .catalog {
   display: flex;
 }

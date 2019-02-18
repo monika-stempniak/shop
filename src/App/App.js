@@ -7,11 +7,13 @@ import HomePage from "../pages/HomePage/HomePage";
 import CatalogPage from "../pages/CatalogPage/CatalogPage";
 import AboutPage from "../pages/AboutPage/AboutPage";
 
+import styles from "./App.module.scss";
+
 class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className={styles.wrapper}>
           <Menu />
           <Switch>
             <Route exact path="/" component={HomePage}/>

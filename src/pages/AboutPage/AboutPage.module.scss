@@ -1,6 +1,9 @@
 @import "../../scss/main.scss";
 
+.wrapper {
+  min-height: 74vh;
+}
+
 .content {
-  line-height: 1.8;
   text-align: justify;
 }

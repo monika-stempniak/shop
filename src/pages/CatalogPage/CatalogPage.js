@@ -59,50 +59,52 @@ class CatalogPage extends Component {
     const { selectedProduct, searchValue } = this.state;
 
     return (
-      <div className={styles.container}>
-        <h1 className={styles.headerBig}>Catalog</h1>
+      <div className={styles.wrapper}>
+        <div className={styles.container}>
+          <h1 className={styles.headerBig}>Catalog</h1>
 
-        <div className={styles.catalog}>
-          <div className={styles.columnLeft}>
-            <div className={styles.filter}>
-              <div className={styles.filterHeader}>
+          <div className={styles.catalog}>
+            <div className={styles.columnLeft}>
+              <div className={styles.filter}>
+                <div className={styles.filterHeader}>
 
-              <h4>Search</h4>
-              <button className={styles.clear} onClick={this.handleClear}>Clear</button>
+                <h4>Search</h4>
+                <button className={styles.clear} onClick={this.handleClear}>Clear</button>
+                </div>
+                <InputField
+                  type="text"
+                  placeholder="search..." 
+                  name="search"
+                  id="search"
+                  value={searchValue}
+                  handleChange={this.handleChange}  
+                  label="Search"
+                  className={styles.visuallyhidden}
+                />
+
+                <h4>Manufacturer</h4>
+                <Fragment>
+                  {
+                    this.manufacturers.map(manufacturer => (
+                      <InputField
+                        key={manufacturer.id}
+                        type="radio"
+                        name="manufacturer"
+                        id={manufacturer.id}
+                        value={manufacturer.id}
+                        handleChange={this.handleChange}  
+                        checked={selectedProduct === manufacturer.id}
+                        label={manufacturer.label}
+                      />
+                    ))
+                  }
+                </Fragment>
               </div>
-              <InputField
-                type="text"
-                placeholder="search..." 
-                name="search"
-                id="search"
-                value={searchValue}
-                handleChange={this.handleChange}  
-                label="Search"
-                className={styles.visuallyhidden}
-              />
-
-              <h4>Manufacturer</h4>
-              <Fragment>
-                {
-                  this.manufacturers.map(manufacturer => (
-                    <InputField
-                      key={manufacturer.id}
-                      type="radio"
-                      name="manufacturer"
-                      id={manufacturer.id}
-                      value={manufacturer.id}
-                      handleChange={this.handleChange}  
-                      checked={selectedProduct === manufacturer.id}
-                      label={manufacturer.label}
-                    />
-                  ))
-                }
-              </Fragment>
             </div>
-          </div>
 
-          <div className={styles.columnRight}>
-            <Products products={this.renderProducts(selectedProduct)} />
+            <div className={styles.columnRight}>
+              <Products products={this.renderProducts(selectedProduct)} />
+            </div>
           </div>
         </div>
       </div>

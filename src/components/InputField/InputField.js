@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from "./InputField.module.scss";
+import "./InputField.module.scss";
 
 class InputField extends Component {
   static defaultProps = {
