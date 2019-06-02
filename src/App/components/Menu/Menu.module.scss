@@ -14,6 +14,10 @@
 
 .nav > li {
   float: left;
+
+  &:last-child {
+    float: right;
+  }
 }
 
 .nav > li > a {

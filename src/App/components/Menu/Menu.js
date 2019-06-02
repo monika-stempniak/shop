@@ -16,6 +16,9 @@ const Menu = () => (
         <li>
           <NavLink to="/about" activeClassName={styles.activeLink}>About</NavLink>
         </li>
+        <li>
+          <NavLink to="/cart" activeClassName={styles.activeLink}>Cart</NavLink>
+        </li>
       </ul>
     </div>
 </nav>
