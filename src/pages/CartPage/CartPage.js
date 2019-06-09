@@ -3,6 +3,8 @@ import { compose } from "recompose";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
+import { actions as cartActions } from "../../store/actions/cartActions";
+
 import styles from "./CartPage.module.scss"
 
 class CartPage extends Component {
@@ -15,6 +17,7 @@ class CartPage extends Component {
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.manufacture}>{manufacture}</p>
         <p className={styles.amount}>${amount}</p>
+        <button type="button" onClick={() => this.props.removeFromCart(id)} className={styles.button}>Remove</button>
       </li>
     ));
   }
@@ -66,6 +69,8 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(
     mapStateToProps,
-    {}
+    {
+      ...cartActions
+    }
   )
 )(CartPage);

@@ -10,10 +10,17 @@ export const updateCart = (data) => {
 
 const addToCart = (product) => (dispatch, getState) => {
     const { cart } = getState();
-    const productsIds = [...cart.products, product];
-    dispatch(updateCart(productsIds));
+    const products = [...cart.products, product];
+    dispatch(updateCart(products));
+  };
+
+const removeFromCart = (productId) => (dispatch, getState) => {
+    const { cart } = getState();
+    const products = cart.products.filter(product => product.id === productId);
+    dispatch(updateCart(products));
   };
 
 export const actions = {
-  addToCart
+  addToCart,
+  removeFromCart
 }

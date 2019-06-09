@@ -17,6 +17,7 @@
 
 .image {
   height: 50px;
+  margin: 0 20px;
 }
 
 .name {
@@ -35,8 +36,19 @@
 }
 
 .sum {
-  margin: 0 20px;
+  margin: 0 160px;
   text-align: right;
   font-weight: bold;
   font-size: 18px;
+}
+
+.button {
+  background-color: $red;
+  color: $white;
+  border: none;
+  border-radius: 5px;
+  width: 100px;
+  padding: 5px 0;
+  cursor: pointer;
+  margin: 0 20px;
 }
