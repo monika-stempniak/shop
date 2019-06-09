@@ -8,8 +8,7 @@ import styles from "./HomePage.module.scss";
 class HomePage extends Component {
   renderProducts = (category) => {
     return ProductsService.getProducts()
-      .filter(product => product.category === category)
-      .filter(product => product.featured === true);
+      .filter(product => product.featured && product.category === category);
   };
 
   render() {
