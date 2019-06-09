@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from "recompose";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 
 import Products from "../../components/Products/Products";
 import { actions as productsActions } from "../../store/actions/productsActions";
@@ -46,14 +47,14 @@ class HomePage extends Component {
   };
 };
 
-// Users.propTypes = {
-//   users: PropTypes.PropTypes.shape({
-//     isLoading: PropTypes.bool,
-//     error: PropTypes.string || null,
-//     data: PropTypes.array || null,
-//   }),
-//   fetchAllUsers: PropTypes.func,
-// };
+HomePage.propTypes = {
+  products: PropTypes.shape({
+    isLoading: PropTypes.bool,
+    data: PropTypes.array | null,
+    error: PropTypes.string | null,
+  }),
+  getProducts: PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {
