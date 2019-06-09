@@ -3,3 +3,40 @@
 .wrapper {
   min-height: 74vh;
 }
+
+.cartItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.listWrapper {
+  padding-right: 100px;
+}
+
+.image {
+  height: 50px;
+}
+
+.name {
+  margin: 0 20px;
+}
+
+.manufacture {
+  margin: 0 20px;
+}
+
+.amount {
+  margin: 0 20px;
+  flex: 1;
+  text-align: right;
+  color: $blue-lagoon;
+}
+
+.sum {
+  margin: 0 20px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 18px;
+}

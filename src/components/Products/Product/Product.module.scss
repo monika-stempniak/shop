@@ -4,6 +4,7 @@
   max-width: 23%;
   background: $white;
   margin: 1%;
+  padding: 1%;
   text-align: center;
   flex: 1 0 23%;
   box-shadow: 5px 10px 20px $dark-gray;
@@ -29,4 +30,14 @@
   margin: 16px 0;
   font-weight: 400;
   font-size: 16px;
+}
+
+.button {
+  background-color: $blue-lagoon;
+  color: $white;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  padding: 5px 0;
+  cursor: pointer;
 }

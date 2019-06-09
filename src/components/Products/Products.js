@@ -12,14 +12,8 @@ class Products extends Component {
     return (
       <div className={styles.products}>
         { 
-          products.map(product => 
-            <Product
-              key={product.id}
-              image={product.image}
-              price={product.amount}
-              name={product.name}
-              manufacture={product.manufacture}
-            />
+          products.map((product) => 
+            <Product key={product.id} product={product} />
           )
         }
       </div>

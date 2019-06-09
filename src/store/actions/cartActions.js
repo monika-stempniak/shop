@@ -1,16 +1,19 @@
 
-export const GET_PRODUCT_ID = 'GET_PRODUCT_ID';
+export const UPDATE_CART = 'UPDATE_CART';
 
-export const getProductsIds = (data) => {
+export const updateCart = (data) => {
   return {
-    type: 'GET_PRODUCT_ID',
+    type: 'UPDATE_CART',
     payload: data,
   };
 }
 
-export const updateProduct = (id) => (dispatch, getState) => {
+const addToCart = (product) => (dispatch, getState) => {
     const { cart } = getState();
-    const productsIds = [...cart.productsIds, id];
-    dispatch(getProductsIds(productsIds));
+    const productsIds = [...cart.products, product];
+    dispatch(updateCart(productsIds));
   };
 
+export const actions = {
+  addToCart
+}
