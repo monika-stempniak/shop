@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
+import { compose } from "recompose";
+import { connect } from "react-redux";
 
-import ProductsService from "../../services/products.service";
 import Products from "../../components/Products/Products"
 import InputField from "../../components/InputField/InputField"
+import { actions as productsActions } from "../../store/actions/productsActions";
 
 import styles from "./CatalogPage.module.scss";
 
@@ -10,24 +12,28 @@ class CatalogPage extends Component {
   state = {
     manufacturer: "All",
     searchText: "",
-    products: ProductsService.getProducts(),
+  }
+
+  componentDidMount() {
+    this.props.getProducts();
   }
 
   getManufactures() {
-    const products =  [...new Set(this.state.products.map(product => product.manufacture))];
+    const { data } = this.props.products;
+    const products = [...new Set(data.map(product => product.manufacture))];
     products.unshift("All");
 
     return products;
   }
 
   getFilteredProducts = (selectedManufacturer, searchText) => {
-    const { products } = this.state;
+    const { data } = this.props.products;
     const manufacturer = selectedManufacturer.toLowerCase();
     const text = searchText.toLowerCase().trim();
 
-    let filteredProducts = products;
+    let filteredProducts = data;
     if (manufacturer !== "all") {
-      filteredProducts = products.filter(({ manufacture }) => {
+      filteredProducts = data.filter(({ manufacture }) => {
         return manufacture.toLowerCase() === manufacturer;
       });
     } 
@@ -67,6 +73,11 @@ class CatalogPage extends Component {
 
   render() {
     const { manufacturer, searchText } = this.state;
+    const { data, isLoading } = this.props.products;
+
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
 
     const products = this.getFilteredProducts(manufacturer, searchText);
 
@@ -96,7 +107,7 @@ class CatalogPage extends Component {
 
                 <h4>Manufacturer</h4>
                 <Fragment>
-                  {
+                  { data &&
                     this.getManufactures().map(manufacture => (
                       <InputField
                         key={manufacture}
@@ -115,7 +126,9 @@ class CatalogPage extends Component {
             </div>
 
             <div className={styles.columnRight}>
-              <Products products={products} />
+            {
+              data && <Products products={products} />
+            }
             </div>
           </div>
         </div>
@@ -124,4 +137,17 @@ class CatalogPage extends Component {
   }
 }
 
-export default CatalogPage;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default compose(
+  connect(
+    mapStateToProps,
+    { 
+      ...productsActions
+    }
+  )
+)(CatalogPage);

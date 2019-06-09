@@ -1,29 +1,71 @@
 import React, { Component } from 'react';
+import { compose } from "recompose";
+import { connect } from "react-redux";
 
-import ProductsService from "../../services/products.service";
 import Products from "../../components/Products/Products";
+import { actions as productsActions } from "../../store/actions/productsActions";
 
 import styles from "./HomePage.module.scss";
 
 class HomePage extends Component {
-  renderProducts = (category) => {
-    return ProductsService.getProducts()
-      .filter(product => product.featured && product.category === category);
+  componentDidMount() {
+    this.props.getProducts();
+  }
+
+  renderProducts(category) {
+    return this.props.products.data.filter(product => product.featured && product.category === category);
   };
 
   render() {
+    const { data, isLoading } = this.props.products;
+
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+
     return (
       <div className={styles.container}>
         <h1 className={styles.headerBig}>Welcome to our store</h1>
 
         <h2 className={styles.headerSmall}>Desktops</h2>
-        <Products products={this.renderProducts("desktop")} />
-
+        {
+          data && (
+            <Products products={this.renderProducts("desktop")} />
+          )
+        }
+        
         <h2 className={styles.headerSmall}>Tablets</h2>
-        <Products products={this.renderProducts("tablet")} />
+        {
+          data && (
+            <Products products={this.renderProducts("tablet")} />
+          )
+        }
+        
     </div>
     );
   };
 };
 
-export default HomePage;
+// Users.propTypes = {
+//   users: PropTypes.PropTypes.shape({
+//     isLoading: PropTypes.bool,
+//     error: PropTypes.string || null,
+//     data: PropTypes.array || null,
+//   }),
+//   fetchAllUsers: PropTypes.func,
+// };
+
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default compose(
+  connect(
+    mapStateToProps,
+    { 
+      ...productsActions
+    }
+  )
+)(HomePage);

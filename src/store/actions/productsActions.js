@@ -16,26 +16,26 @@ const getProductsDone = (data) => {
   };
 }
 
-const getProductsFailed= (error) => {
+const getProductsFailed = (error) => {
   return {
     type: 'GET_PRODUCTS_FAILED',
     payload: error
   };
 }
 
-export const getData =() => {
+const getProducts =() => {
   return async dispatch => {
     try {
       dispatch(getProductsRequested());
-      const response = await fetch('https://api.jsonbin.io/b/5cf311bee36bab4cf3101423');
-      const data = await response.json();
-      const products = data.results[0];
-
-      console.log(data);
-      console.log(products);
+      const response = await fetch('http://react2018-shop.s3-website-eu-west-1.amazonaws.com');
+      const products = await response.json();
       dispatch(getProductsDone(products));
     } catch(error) {
       dispatch(getProductsFailed(error));
     }
   }
+}
+
+export const actions = {
+  getProducts,
 }

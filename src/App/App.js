@@ -17,8 +17,8 @@ class App extends Component {
         <div className={styles.wrapper}>
           <Menu />
           <Switch>
-            <Route exact path="/" component={HomePage}/>
-            <Route path="/catalog" component={CatalogPage}/>
+            <Route exact path="/" render={() => <HomePage/>}/>
+            <Route path="/catalog" render={() => <CatalogPage />}/>
             <Route path="/about" component={AboutPage}/>  
             <Route path="/cart" component={CartPage}/>  
             <Route render={() => <h1>Page not found</h1>}/>
