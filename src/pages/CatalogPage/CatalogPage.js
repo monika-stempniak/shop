@@ -8,55 +8,67 @@ import styles from "./CatalogPage.module.scss";
 
 class CatalogPage extends Component {
   state = {
-    selectedProduct: "all",
-    searchValue: ""
+    manufacturer: "All",
+    searchText: "",
+    products: ProductsService.getProducts(),
   }
 
-  manufacturers = [
-    {
-      "id": "all",
-      "label": "All",
-    },
-    {
-      "id": "apple",
-      "label": "Apple",
-    },
-    {
-      "id": "dell",
-      "label": "Dell",
-    }
-  ];
+  getManufactures() {
+    const products =  [...new Set(this.state.products.map(product => product.manufacture))];
+    products.unshift("All");
 
-  renderProducts = (selectedProduct) => {
-    const selected = selectedProduct.toLowerCase();
-    let products;
-    if (selected === "all") {
-      products = ProductsService.getProducts();
-    } else {
-      products = ProductsService.getProducts().filter(product => {
-        return product.name.toLowerCase().includes(selected) || product.manufacture.toLowerCase().includes(selected);
+    return products;
+  }
+
+  getFilteredProducts = (selectedManufacturer, searchText) => {
+    const { products } = this.state;
+    const manufacturer = selectedManufacturer.toLowerCase();
+    const text = searchText.toLowerCase().trim();
+
+    let filteredProducts = products;
+    if (manufacturer !== "all") {
+      filteredProducts = products.filter(({ manufacture }) => {
+        return manufacture.toLowerCase() === manufacturer;
+      });
+    } 
+    
+    if (text) {
+      filteredProducts = filteredProducts.filter(product => {
+        return Object.keys(product).some(key => {
+          if(key === "name" || key === "manufacture" || key === "category") {
+            return product[key].toLowerCase().includes(text);
+          }
+          return false;
+        });
       });
     }
 
-    return products;
+    return filteredProducts;
   };
 
-  handleChange = e => {
+  handleSearch = e => {
     this.setState({
-      selectedProduct: e.target.value,
-      searchValue: e.target.value
+      searchText: e.target.value
+    });
+  };
+
+  handleSelect = e => {
+    this.setState({
+      manufacturer: e.target.value,
     });
   };
 
   handleClear = () => {
     this.setState({
-      selectedProduct: "all",
-      searchValue: ""
+      manufacturer: "All",
+      searchText: ""
     });
   }
 
   render() {
-    const { selectedProduct, searchValue } = this.state;
+    const { manufacturer, searchText } = this.state;
+
+    const products = this.getFilteredProducts(manufacturer, searchText);
 
     return (
       <div className={styles.wrapper}>
@@ -76,8 +88,8 @@ class CatalogPage extends Component {
                   placeholder="search..." 
                   name="search"
                   id="search"
-                  value={searchValue}
-                  handleChange={this.handleChange}  
+                  value={searchText}
+                  handleChange={this.handleSearch}  
                   label="Search"
                   className={styles.visuallyhidden}
                 />
@@ -85,16 +97,16 @@ class CatalogPage extends Component {
                 <h4>Manufacturer</h4>
                 <Fragment>
                   {
-                    this.manufacturers.map(manufacturer => (
+                    this.getManufactures().map(manufacture => (
                       <InputField
-                        key={manufacturer.id}
+                        key={manufacture}
                         type="radio"
                         name="manufacturer"
-                        id={manufacturer.id}
-                        value={manufacturer.id}
-                        handleChange={this.handleChange}  
-                        checked={selectedProduct === manufacturer.id}
-                        label={manufacturer.label}
+                        id={manufacture}
+                        value={manufacture}
+                        handleChange={this.handleSelect}  
+                        checked={manufacturer === manufacture}
+                        label={manufacture}
                       />
                     ))
                   }
@@ -103,7 +115,7 @@ class CatalogPage extends Component {
             </div>
 
             <div className={styles.columnRight}>
-              <Products products={this.renderProducts(selectedProduct)} />
+              <Products products={products} />
             </div>
           </div>
         </div>
