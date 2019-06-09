@@ -54,7 +54,7 @@ input[type="radio"]:checked + label:after {
 input[type="text"] {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid $medium-gray;
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 13px;
