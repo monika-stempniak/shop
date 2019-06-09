@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { compose } from "recompose";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 
 import Products from "../../components/Products/Products"
 import InputField from "../../components/InputField/InputField"
@@ -136,6 +137,15 @@ class CatalogPage extends Component {
     );
   }
 }
+
+CatalogPage.propTypes = {
+  products: PropTypes.shape({
+    isLoading: PropTypes.bool,
+    data: PropTypes.array,
+    error: PropTypes.string,
+  }),
+  getProducts: PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {
