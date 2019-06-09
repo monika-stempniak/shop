@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink, } from 'react-router-dom';
 
+import ProductsCount from "../../../components/ProductsCount/ProductsCount";
+
 import styles from "./Menu.module.scss"
 
 const Menu = () => (
@@ -16,8 +18,11 @@ const Menu = () => (
         <li>
           <NavLink to="/about" activeClassName={styles.activeLink}>About</NavLink>
         </li>
-        <li>
-          <NavLink to="/cart" activeClassName={styles.activeLink}>Cart</NavLink>
+        <li className={styles.cart}>
+          <NavLink to="/cart" activeClassName={styles.activeLink}>
+            Cart
+          </NavLink>
+          <ProductsCount />
         </li>
       </ul>
     </div>
