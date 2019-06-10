@@ -42,7 +42,7 @@ class CartPage extends Component {
               <hr/>
               {
                 products.length > 0 && 
-                <p className={styles.sum}>SUM: ${productsAmount}</p>
+                <p className={styles.sum}>TOTAL: ${productsAmount}</p>
               }
               </Fragment> 
           }

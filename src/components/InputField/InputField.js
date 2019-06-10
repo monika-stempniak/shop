@@ -1,27 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import "./InputField.module.scss";
 
-class InputField extends Component {
-  static defaultProps = {
-    value: "",
-    checked: false,
-    placeholder: "",
-    className: ""
-  }
-  
-  render() {
-    const { type, name, id, handleChange, label, placeholder, value, className, checked } = this.props;
+const InputField = ({ type, name, id, handleChange, label, placeholder, value, className, checked }) => (
+  <div>
+    <input type={type} placeholder={placeholder} name={name} id={id} onChange={handleChange} value={value} checked={checked}/>
+    <label htmlFor={id} className={className}>{label}</label>
+  </div>
+);
 
-    return (
-      <div>
-        <input type={type} placeholder={placeholder} name={name} id={id} onChange={handleChange} value={value} checked={checked}/>
-        <label htmlFor={id} className={className}>{label}</label>
-      </div>
-    );
-  }
-}
 
 InputField.propTypes = {
   type: PropTypes.string.isRequired,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from "recompose";
 import { connect } from "react-redux";
@@ -7,20 +7,17 @@ import { actions as cartActions } from "../../../store/actions/cartActions";
 
 import styles from "./Product.module.scss";
 
-class Product extends Component {
+const Product = (props) => {
+  const { image, amount, name, manufacture} = props.product;
 
-  render() {
-    const { image, amount, name, manufacture} = this.props.product;
-
-    return (
-      <div className={styles.product}>
-        <img className={styles.image} src={image} alt={`${manufacture} ${name}`} />
-        <p className={styles.price}>{`$${amount}`}</p>
-        <h3 className={styles.title}>{name}</h3>
-        <button type="button" onClick={() => this.props.addToCart(this.props.product)} className={styles.button}>Add to cart</button>
-      </div>
-    );
-  }
+  return (
+    <div className={styles.product}>
+      <img className={styles.image} src={image} alt={`${manufacture} ${name}`} />
+      <p className={styles.price}>{`$${amount}`}</p>
+      <h3 className={styles.title}>{name}</h3>
+      <button type="button" onClick={() => props.addToCart(props.product)} className={styles.button}>Add to cart</button>
+    </div>
+  );
 }
 
 Product.propTypes = {

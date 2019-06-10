@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 
 import Menu from "./components/Menu/Menu";
@@ -11,26 +11,22 @@ const CatalogPage = withRouter(React.lazy(() => import("../pages/CatalogPage/Cat
 const CartPage = withRouter(React.lazy(() => import("../pages/CartPage/CartPage")));
 const HomePage = withRouter(React.lazy(() => import("../pages/HomePage/HomePage")));
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <div className={styles.wrapper}>
-          <Menu />
-          <Switch>
-              <Suspense fallback={<div>Loading...</div>}>
-                <Route exact path="/" component={HomePage} />
-                <Route path="/catalog" component={CatalogPage}/>
-                <Route path="/cart" component={CartPage}/>  
-                <Route path="/about" component={AboutPage}/>  
-              </Suspense>
-            <Route render={() => <h1>Page not found</h1>}/>
-          </Switch>
-          <Footer />
-        </div>
-      </Router>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <div className={styles.wrapper}>
+      <Menu />
+      <Switch>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/catalog" component={CatalogPage}/>
+            <Route path="/cart" component={CartPage}/>  
+            <Route path="/about" component={AboutPage}/>  
+          </Suspense>
+        <Route render={() => <h1>Page not found</h1>}/>
+      </Switch>
+      <Footer />
+    </div>
+  </Router>
+);
 
 export default App;
